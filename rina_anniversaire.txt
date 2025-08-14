@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joyeux Anniversaire Rina !</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ffcce6 0%, #ff99cc 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+            color: #5a2d4e;
+        }
+        
+        /* Effet de confettis */
+        .confetti {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            animation: confetti-fall 5s linear infinite;
+            z-index: 1;
+            opacity: 0.8;
+        }
+        
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-10vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(110vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Conteneur principal */
+        .container {
+            width: 90%;
+            max-width: 900px;
+            background: linear-gradient(to bottom right, #fff5f8, #ffeef4);
+            border-radius: 25px;
+            box-shadow: 0 20px 60px rgba(196, 42, 128, 0.3);
+            overflow: hidden;
+            position: relative;
+            z-index: 2;
+            margin: 30px auto;
+            padding: 30px;
+            border: 8px solid #ff99cc;
+            backdrop-filter: blur(5px);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        /* Style de la barre de défilement */
+        /* Pour WebKit (Chrome, Safari) */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 204, 230, 0.4);
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(45deg, #ff66b3, #ff3385);
+            border-radius: 10px;
+            border: 2px solid #ffeef4;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(45deg, #ff3385, #ff0066);
+        }
+        
+        /* Pour Firefox */
+        html {
+            scrollbar-width: thin;
+            scrollbar-color: #ff66b3 rgba(255, 204, 230, 0.4);
+        }
+        
+        /* Pour IE et Edge */
+        body {
+            scrollbar-base-color: #ff66b3;
+            scrollbar-face-color: #ff66b3;
+            scrollbar-track-color: rgba(255, 204, 230, 0.4);
+        }
+        
+        /* Animation pour la barre de défilement */
+        @keyframes scrollHint {
+            0% { transform: translateY(0); opacity: 0.4; }
+            50% { transform: translateY(10px); opacity: 1; }
+            100% { transform: translateY(0); opacity: 0.4; }
+        }
+        
+        .scroll-hint {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #ff3385;
+            font-size: 2rem;
+            animation: scrollHint 2s infinite;
+            z-index: 10;
+            display: none;
+        }
+        
+        /* En-tête */
+        .header {
+            text-align: center;
+            padding: 40px 30px 30px;
+            background: linear-gradient(45deg, #ff66b3, #ff3385);
+            border-radius: 20px 20px 0 0;
+            margin: -30px -30px 40px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(255, 51, 133, 0.3);
+        }
+        
+        .header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            z-index: 1;
+        }
+        
+        .header h1 {
+            font-size: 3.2rem;
+            color: white;
+            text-shadow: 0 3px 15px rgba(0, 0, 0, 0.3);
+            margin-bottom: 15px;
+            animation: pulse 2s infinite;
+            position: relative;
+            z-index: 2;
+            font-family: 'Brush Script MT', cursive;
+            letter-spacing: 2px;
+        }
+        
+        .header p {
+            font-size: 1.4rem;
+            color: rgba(255, 255, 255, 0.95);
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            font-weight: 300;
+        }
+        
+        /* Gâteau d'anniversaire */
+        .cake-container {
+            position: relative;
+            height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 30px 0 40px;
+            perspective: 1000px;
+        }
+        
+        .cake {
+            position: relative;
+            width: 220px;
+            height: 220px;
+            transform-style: preserve-3d;
+            animation: rotate 20s linear infinite;
+        }
+        
+        /* Base du gâteau */
+        .cake-base {
+            position: absolute;
+            width: 200px;
+            height: 80px;
+            background: linear-gradient(to bottom, #e6b0aa, #d98880);
+            border-radius: 15px 15px 10px 10px;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        
+        /* Texture du gâteau */
+        .cake-base::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 15px;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.4), transparent);
+            border-radius: 15px 15px 0 0;
+        }
+        
+        /* Crème sur la base */
+        .cream-base {
+            position: absolute;
+            width: 220px;
+            height: 20px;
+            background: linear-gradient(to bottom, #f8f9f9, #f2f3f4);
+            border-radius: 50%;
+            bottom: 70px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            z-index: 5;
+        }
+        
+        /* Étage du milieu */
+        .cake-middle {
+            position: absolute;
+            width: 170px;
+            height: 60px;
+            background: linear-gradient(to bottom, #f5b7b1, #e6b0aa);
+            border-radius: 12px;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+        }
+        
+        .cake-middle::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 12px;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.4), transparent);
+            border-radius: 12px 12px 0 0;
+        }
+        
+        /* Crème sur l'étage du milieu */
+        .cream-middle {
+            position: absolute;
+            width: 190px;
+            height: 18px;
+            background: linear-gradient(to bottom, #f8f9f9, #f2f3f4);
+            border-radius: 50%;
+            bottom: 130px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            z-index: 5;
+        }
+        
+        /* Dernier étage */
+        .cake-top {
+            position: absolute;
+            width: 140px;
+            height: 50px;
+            background: linear-gradient(to bottom, #fadbd8, #f5b7b1);
+            border-radius: 10px;
+            bottom: 140px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 7px 18px rgba(0, 0, 0, 0.12);
+            overflow: hidden;
+        }
+        
+        .cake-top::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 10px;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.4), transparent);
+            border-radius: 10px 10px 0 0;
+        }
+        
+        /* Crème sur le dernier étage */
+        .cream-top {
+            position: absolute;
+            width: 150px;
+            height: 15px;
+            background: linear-gradient(to bottom, #f8f9f9, #f2f3f4);
+            border-radius: 50%;
+            bottom: 180px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            z-index: 5;
+        }
+        
+        /* Bougies */
+        .candle {
+            position: absolute;
+            width: 8px;
+            height: 45px;
+            background: linear-gradient(to bottom, #f1c40f, #e67e22);
+            border-radius: 4px;
+            bottom: 180px;
+            z-index: 10;
+            box-shadow: 0 0 10px rgba(230, 126, 34, 0.5);
+        }
+        
+        .flame {
+            position: absolute;
+            width: 15px;
+            height: 25px;
+            background: linear-gradient(to bottom, #ffef00, #ff5722);
+            border-radius: 50% 50% 20% 20%;
+            bottom: 225px;
+            animation: flicker 0.8s infinite alternate;
+            filter: blur(1px);
+            box-shadow: 0 0 20px #ff5722;
+        }
+        
+        /* Position des bougies */
+        .candle:nth-child(1) {
+            left: 38%;
+        }
+        
+        .candle:nth-child(2) {
+            left: 48%;
+        }
+        
+        .candle:nth-child(3) {
+            left: 58%;
+        }
+        
+        /* Décorations */
+        .decoration {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            z-index: 3;
+            animation: float 6s infinite ease-in-out;
+        }
+        
+        .strawberry {
+            position: absolute;
+            width: 15px;
+            height: 20px;
+            background: linear-gradient(to bottom, #e74c3c, #c0392b);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            z-index: 4;
+            animation: float 8s infinite ease-in-out;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .strawberry::before {
+            content: "";
+            position: absolute;
+            top: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 8px;
+            height: 8px;
+            background: #27ae60;
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+        }
+        
+        /* Message */
+        .message {
+            background: rgba(255, 255, 255, 0.85);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            margin-bottom: 40px;
+            position: relative;
+            border-left: 8px solid #ff66b3;
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 1s ease;
+            backdrop-filter: blur(5px);
+        }
+        
+        .message.visible {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .message-content {
+            font-size: 1.2rem;
+            line-height: 1.9;
+            color: #5a2d4e;
+            text-align: justify;
+            font-weight: 400;
+        }
+        
+        .message-content p {
+            margin-bottom: 20px;
+            text-indent: 20px;
+        }
+        
+        .signature {
+            text-align: right;
+            margin-top: 30px;
+            font-style: italic;
+            font-size: 1.5rem;
+            color: #ff3385;
+            font-weight: 700;
+            font-family: 'Brush Script MT', cursive;
+        }
+        
+        /* Coeurs flottants */
+        .heart {
+            position: absolute;
+            color: #ff3385;
+            font-size: 2rem;
+            animation: float 10s infinite ease-in-out;
+            text-shadow: 0 2px 10px rgba(255, 51, 133, 0.3);
+        }
+        
+        /* Bouton */
+        .btn {
+            display: block;
+            width: 300px;
+            margin: 40px auto;
+            padding: 18px 35px;
+            background: linear-gradient(to right, #ff66b3, #ff3385);
+            color: white;
+            text-align: center;
+            border-radius: 60px;
+            font-size: 1.4rem;
+            font-weight: 600;
+            text-decoration: none;
+            box-shadow: 0 8px 25px rgba(255, 51, 133, 0.5);
+            transition: all 0.4s ease;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            z-index: 3;
+        }
+        
+        .btn::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: 0.5s;
+        }
+        
+        .btn:hover {
+            transform: translateY(-7px) scale(1.03);
+            box-shadow: 0 12px 35px rgba(255, 51, 133, 0.7);
+        }
+        
+        .btn:hover::before {
+            left: 100%;
+        }
+        
+        .btn i {
+            margin-right: 12px;
+            animation: pulse 1.5s infinite;
+        }
+        
+        /* Diamant de valeur */
+        .diamond {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(230, 230, 250, 0.6));
+            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(45deg);
+            z-index: 0;
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.6);
+            animation: shine 3s infinite;
+        }
+        
+        .diamond-value {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: #ff3385;
+            text-align: center;
+            width: 100%;
+        }
+        
+        /* Animations */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotateY(0); }
+            100% { transform: rotateY(360deg); }
+        }
+        
+        @keyframes flicker {
+            0% { 
+                transform: scale(1) translateX(0);
+                opacity: 1;
+            }
+            25% {
+                transform: scale(1.1) translateX(-1px);
+            }
+            50% {
+                transform: scale(0.95) translateX(1px);
+            }
+            100% { 
+                transform: scale(1.2) translateX(0);
+                opacity: 0.9;
+            }
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0);
+            }
+            50% {
+                transform: translateY(-20px) rotate(10deg);
+            }
+            100% {
+                transform: translateY(0) rotate(0);
+            }
+        }
+        
+        @keyframes shine {
+            0% { opacity: 0.3; }
+            50% { opacity: 1; }
+            100% { opacity: 0.3; }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .header p {
+                font-size: 1.2rem;
+            }
+            
+            .message-content {
+                font-size: 1.1rem;
+            }
+            
+            .cake-container {
+                height: 250px;
+            }
+            
+            .btn {
+                width: 250px;
+                font-size: 1.3rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .header p {
+                font-size: 1rem;
+            }
+            
+            .message {
+                padding: 25px;
+            }
+            
+            .btn {
+                width: 90%;
+                padding: 15px;
+                font-size: 1.2rem;
+            }
+            
+            .diamond {
+                width: 60px;
+                height: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Confettis générés dynamiquement -->
+    
+    <div class="container">
+        <div class="header">
+            <h1>Joyeux 18ème Anniversaire Rina !</h1>
+            <p>Un jour magique pour une personne exceptionnelle</p>
+        </div>
+        
+        <div class="cake-container">
+            <div class="diamond">
+                <div class="diamond-value">Valeur: 1,000,000,000 $</div>
+            </div>
+            
+            <div class="cake">
+                <div class="cake-base"></div>
+                <div class="cream-base"></div>
+                <div class="cake-middle"></div>
+                <div class="cream-middle"></div>
+                <div class="cake-top"></div>
+                <div class="cream-top"></div>
+                
+                <!-- Bougies -->
+                <div class="candle">
+                    <div class="flame"></div>
+                </div>
+                <div class="candle">
+                    <div class="flame"></div>
+                </div>
+                <div class="candle">
+                    <div class="flame"></div>
+                </div>
+                
+                <!-- Décorations -->
+                <div class="decoration" style="background:#f1c40f; top:40px; left:50px;"></div>
+                <div class="decoration" style="background:#9b59b6; top:70px; left:120px;"></div>
+                <div class="decoration" style="background:#2ecc71; top:30px; left:180px;"></div>
+                <div class="decoration" style="background:#e74c3c; top:90px; left:90px;"></div>
+                <div class="decoration" style="background:#3498db; top:60px; left:150px;"></div>
+                
+                <div class="strawberry" style="top:20px; left:80px;"></div>
+                <div class="strawberry" style="top:100px; left:160px;"></div>
+                <div class="strawberry" style="top:50px; left:30px;"></div>
+            </div>
+        </div>
+        
+        <button class="btn" id="surpriseBtn">
+            <i class="fas fa-gem"></i> Clique pour découvrir ton message
+        </button>
+        
+        <div class="message" id="specialMessage">
+            <div class="message-content">
+                <p>Ma douce Rina,</p>
+                <br>
+                <p>Aujourd’hui est un jour unique, un jour où le monde a eu la chance de t’accueillir… et où moi, j’ai eu la chance, quelques années plus tard, de croiser ton chemin.</p>
+                <br>
+                <p>Tu as aujourd’hui 18 ans, l’âge où les rêves prennent leur envol, où tout devient possible. Mais pour moi, tu n’es pas seulement une jeune femme magnifique et pleine d’avenir… tu es mon rayon de soleil depuis presque deux ans, ma source de sourires, mon réconfort dans les jours gris, et mon bonheur simple au quotidien.</p>
+                <br>
+                <p>Chaque moment passé à tes côtés m’a appris à aimer plus fort, à être plus patient, et à croire que certaines rencontres ne sont pas dues au hasard. Tu es douce, forte, unique… et tellement précieuse à mes yeux.</p>
+                <br>
+                <p>En ce jour spécial, je te souhaite tout ce que ton cœur peut désirer : du bonheur à n’en plus finir, des rêves qui se réalisent, et des souvenirs encore plus beaux que ceux que nous avons déjà partagés.</p>
+                <br>
+                <p>Mais surtout… je te souhaite de toujours sentir à quel point tu comptes pour moi, aujourd’hui, demain, et bien au-delà.</p>
+                <br>
+                <p>J’ai hâte de continuer à écrire notre histoire, main dans la main, avec tendresse et complicité.</p>
+            </div>
+            <div class="signature">
+                <p>Avec tout mon cœur,<br>Henock</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Indicateur de défilement -->
+    <div class="scroll-hint" id="scrollHint">
+        <i class="fas fa-chevron-down"></i>
+    </div>
+
+    <script>
+        // Création des confettis
+        function createConfetti() {
+            const colors = ['#ff66b3', '#ff3385', '#ff99cc', '#ffcc00', '#9b59b6', '#2ecc71'];
+            const container = document.body;
+            
+            for (let i = 0; i < 150; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                
+                // Position aléatoire
+                const posX = Math.random() * 100;
+                const posY = Math.random() * -20;
+                
+                // Taille aléatoire
+                const size = Math.random() * 12 + 6;
+                
+                // Forme aléatoire
+                const shapes = ['circle', 'square'];
+                const shape = shapes[Math.floor(Math.random() * shapes.length)];
+                
+                // Couleur aléatoire
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                
+                // Animation delay
+                const delay = Math.random() * 5;
+                const duration = Math.random() * 5 + 4;
+                
+                confetti.style.left = `${posX}vw`;
+                confetti.style.top = `${posY}vh`;
+                confetti.style.width = `${size}px`;
+                confetti.style.height = `${size}px`;
+                confetti.style.backgroundColor = color;
+                confetti.style.animationDelay = `${delay}s`;
+                confetti.style.animationDuration = `${duration}s`;
+                
+                if (shape === 'circle') {
+                    confetti.style.borderRadius = '50%';
+                }
+                
+                container.appendChild(confetti);
+            }
+        }
+        
+        // Création des coeurs flottants
+        function createHearts() {
+            const container = document.querySelector('.container');
+            
+            for (let i = 0; i < 25; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = '❤';
+                
+                // Position aléatoire
+                const posX = Math.random() * 100;
+                const delay = Math.random() * 5;
+                const duration = Math.random() * 8 + 8;
+                const size = Math.random() * 1.5 + 1;
+                
+                heart.style.left = `${posX}%`;
+                heart.style.animationDelay = `${delay}s`;
+                heart.style.animationDuration = `${duration}s`;
+                heart.style.fontSize = `${size}rem`;
+                heart.style.opacity = Math.random() * 0.5 + 0.3;
+                
+                container.appendChild(heart);
+            }
+        }
+        
+        // Gestion du bouton surprise
+        document.getElementById('surpriseBtn').addEventListener('click', function() {
+            const btn = this;
+            const message = document.getElementById('specialMessage');
+            
+            // Désactiver le bouton
+            btn.disabled = true;
+            btn.style.transform = 'scale(0.95)';
+            btn.style.opacity = '0.7';
+            
+            // Animation du gâteau
+            const cake = document.querySelector('.cake');
+            cake.style.animation = 'pulse 0.5s 3';
+            
+            // Créer des étincelles
+            for (let i = 0; i < 50; i++) {
+                const spark = document.createElement('div');
+                spark.className = 'heart';
+                spark.innerHTML = '✨';
+                spark.style.position = 'absolute';
+                spark.style.fontSize = (Math.random() * 30 + 15) + 'px';
+                spark.style.left = Math.random() * 100 + '%';
+                spark.style.top = Math.random() * 100 + '%';
+                spark.style.animation = 'float 1.5s linear forwards';
+                spark.style.opacity = '0';
+                spark.style.color = '#ffcc00';
+                
+                document.querySelector('.cake-container').appendChild(spark);
+                
+                // Animer l'étincelle
+                setTimeout(() => {
+                    spark.style.opacity = '1';
+                    spark.style.transform = 'translateY(-50px) rotate(360deg)';
+                }, 10);
+                
+                // Supprimer après l'animation
+                setTimeout(() => {
+                    spark.remove();
+                }, 1500);
+            }
+            
+            // Son de surprise (simulé)
+            const audio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYmMkJOXm5+krbC1ucDEyMzQ1NfZ3d/i5Obo6+3w8vT2+Pn7/P3+/wABAgMEBQYHCAkKCwwNDg8QERITFBUWFxgZGhscHR4fICEiIyQlJicoKSorLC0uLzAxMjM0NTY3ODk6Ozw9Pj9AQUJDREVGR0hJSktMTU5PUFFSU1RVVldYWVpbXF1eX2BhYmNkZWZnaGlqa2xtbm9wcXJzdHV2d3h5ent8fX5/gIGCg4SFhoeIiYqLjI2Oj5CRkpOUlZaXmJmam5ydnp+goaKjpKWmp6ipqqusra6vsLGys7S1tre4ubq7vL2+v8DBwsPExcbHyMnKy8zNzs/Q0dLT1NXW19jZ2tvc3d7f4OHi4+Tl5ufo6err7O3u7/Dx8vP09fb3+Pn6+/z9/v8AAQIDBAUGBwgJCgsMDQ4PEBESExQVFhcYGRobHB0eHyAhIiMkJSYnKCkqKywtLi8wMTIzNDU2Nzg5Ojs8PT4/QEFCQ0RFRkdISUpLTE1OT1BRUlNUVVZXWFlaW1xdXl9gYWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXp7fH1+f4CBgoOEhYaHiImKi4yNjo+QkZKTlJWWl5iZmpucnZ6foKGio6SlpqeoqaqrrK2ur7CxsrO0tba3uLm6u7y9vr/AwcLDxMXGx8jJysvMzc7P0NHS09TV1tfY2drb3N3e3+Dh4uPk5ebn6Onq6+zt7u/w8fLz9PX29/j5+vv8/f7/AAECAwQFBgcICQoLDA0ODxAREhMUFRYXGBkaGxwdHh8gISIjJCUmJygpKissLS4vMDEyMzQ1Njc4OTo7PD0+P0BBQkNERUZHSElKS0xNTk9QUVJTVFVWV1hZWltcXV5fYGFiY2RlZmdoaWprbG1ub3BxcnN0dXZ3eHl6e3x9fn+AgYKDhIWGh4iJiouMjY6PkJGSk5SVlpeYmZqbnJ2en6ChoqOkpaanqKmqq6ytrq+wsbKztLW2t7i5uru8vb6/wMHCw8TFxsfIycrLzM3Oz9DR0tPU1dbX2Nna29zd3t/g4eLj5OXm5+jp6uvs7e7v8PHy8/T19vf4+fr7/P3+/wABAgMEBQYHCAkKCwwNDg8QERITFBUWFxgZGhscHR4fICEiIyQlJicoKSorLC0uLzAxMjM0NTY3ODk6Ozw9Pj9AQUJDREVGR0hJSktMTU5PUFFSU1RVVldYWVpbXF1eX2BhYmNkZWZnaGlqa2xtbm9wcXJzdHV2d3h5ent8fX5/gIGCg4SFhoeIiYqLjI2Oj5CRkpOUlZaXmJmam5ydnp+goaKjpKWmp6ipqqusra6vsLGys7S1tre4ubq7vL2+v8DBwsPExcbHyMnKy8zNzs/Q0dLT1NXW19jZ2tvc3d7f4OHi4+Tl5ufo6err7O3u7/Dx8vP09fb3+Pn6+/z9/v8=');
+            audio.volume = 0.3;
+            audio.play().catch(e => console.log("Audio play prevented by browser policy"));
+            
+            // Révéler le message après un délai
+            setTimeout(() => {
+                message.classList.add('visible');
+                
+                // Faire défiler jusqu'au message
+                message.scrollIntoView({ behavior: 'smooth' });
+                
+                // Ajouter un effet de coeurs supplémentaires
+                for (let i = 0; i < 20; i++) {
+                    const heart = document.createElement('div');
+                    heart.className = 'heart';
+                    heart.innerHTML = '❤';
+                    heart.style.position = 'fixed';
+                    heart.style.fontSize = (Math.random() * 30 + 20) + 'px';
+                    heart.style.left = Math.random() * 100 + 'vw';
+                    heart.style.top = Math.random() * 100 + 'vh';
+                    heart.style.animation = 'float 4s linear forwards';
+                    heart.style.opacity = '0';
+                    
+                    document.body.appendChild(heart);
+                    
+                    setTimeout(() => {
+                        heart.style.opacity = '1';
+                    }, 50);
+                    
+                    // Supprimer après l'animation
+                    setTimeout(() => {
+                        heart.remove();
+                    }, 4000);
+                }
+            }, 1500);
+        });
+        
+        // Initialisation
+        window.addEventListener('load', function() {
+            createConfetti();
+            createHearts();
+            
+            // Afficher l'indicateur de défilement
+            setTimeout(() => {
+                const scrollHint = document.getElementById('scrollHint');
+                scrollHint.style.display = 'block';
+                
+                // Cacher après 5 secondes ou quand l'utilisateur fait défiler
+                setTimeout(() => {
+                    scrollHint.style.display = 'none';
+                }, 5000);
+                
+                window.addEventListener('scroll', function() {
+                    scrollHint.style.display = 'none';
+                });
+            }, 2000);
+            
+            // Ajouter un effet de chargement initial
+            setTimeout(() => {
+                document.querySelector('.cake').style.animation = 'rotate 20s linear infinite';
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
